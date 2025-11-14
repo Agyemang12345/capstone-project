@@ -284,21 +284,32 @@ def main():
         # Get disease info
         disease_info = get_disease_info(disease)
         
+        # Debug info (can be hidden in production)
+        with st.expander("Debug Info"):
+            st.write(f"Model Output: `{disease}`")
+            st.write(f"Disease Info Retrieved: {bool(disease_info and disease_info.get('description'))}")
+        
         col1, col2 = st.columns([1, 1])
         
         with col1:
             st.markdown("### Description")
+            description = disease_info.get('description', 'Information not available')
             st.markdown(f"""
                 <div class="info-box">
-                {disease_info.get('description', 'Information not available')}
+                {description}
                 </div>
                 """, unsafe_allow_html=True)
             
             st.markdown("### Symptoms")
             symptoms = disease_info.get('symptoms', 'Not available')
+            if isinstance(symptoms, list):
+                symptoms_text = "<br>".join([f"• {s}" for s in symptoms])
+            else:
+                symptoms_text = symptoms
+            
             st.markdown(f"""
                 <div class="info-box">
-                {symptoms}
+                {symptoms_text}
                 </div>
                 """, unsafe_allow_html=True)
         
@@ -306,10 +317,13 @@ def main():
             st.markdown("### Recommended Solutions")
             solutions = disease_info.get('solutions', [])
             
-            solution_html = '<div class="solution-box">'
-            for solution in solutions:
-                solution_html += f'<li style="margin: 0.5rem 0;">{solution}</li>'
-            solution_html += '</div>'
+            solution_html = '<div class="solution-box"><ul style="margin: 0; padding-left: 1.5rem;">'
+            if solutions:
+                for solution in solutions:
+                    solution_html += f'<li style="margin: 0.5rem 0;">{solution}</li>'
+            else:
+                solution_html += '<li>No specific solutions available</li>'
+            solution_html += '</ul></div>'
             
             st.markdown(solution_html, unsafe_allow_html=True)
         

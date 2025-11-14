@@ -242,14 +242,16 @@ DISEASE_INFO = {
 
 
 # Aliases to map model class names to DISEASE_INFO keys
+# Model outputs: 'Healthy', 'Powdery', 'Rust'
+# Need to map to: 'Healthy', 'Powdery_Mildew', 'Rust'
 DISEASE_NAME_ALIASES = {
+    'healthy': 'Healthy',
     'powdery': 'Powdery_Mildew',
     'powdery_mildew': 'Powdery_Mildew',
     'powdery mildew': 'Powdery_Mildew',
+    'rust': 'Rust',
     'leaf_spot': 'Leaf_Spot',
     'leaf spot': 'Leaf_Spot',
-    'rust': 'Rust',
-    'healthy': 'Healthy',
     'blight': 'Blight'
 }
 
@@ -258,10 +260,12 @@ def get_disease_info(disease_name: str) -> Dict[str, any]:
     """
     Get disease information for a predicted disease.
 
-    This function is tolerant to small naming differences between the
-    model's class names and the keys used in DISEASE_INFO. It will normalize
-    the incoming name, try alias mapping, and finally fall back to a safe
-    default message when no info is available.
+    This function maps model class names to standardized disease information.
+    It uses a multi-step approach:
+    1. Try direct match in DISEASE_INFO
+    2. Normalize and try alias mapping
+    3. Try case-insensitive matching
+    4. Return fallback if no match found
 
     Args:
         disease_name: Name of the disease (as returned by the model)
@@ -276,25 +280,27 @@ def get_disease_info(disease_name: str) -> Dict[str, any]:
             'solutions': ['Monitor the plant carefully', 'Take preventive measures']
         }
 
-    # Normalize incoming name
-    key = disease_name.strip()
-    key_norm = key.replace('-', ' ').replace('_', ' ').lower()
+    # Step 1: Try direct match first
+    if disease_name in DISEASE_INFO:
+        return DISEASE_INFO[disease_name]
 
-    # Try direct key match
-    if key in DISEASE_INFO:
-        return DISEASE_INFO[key]
-
-    # Check aliases mapping
-    alias_key = DISEASE_NAME_ALIASES.get(key_norm)
-    if alias_key and alias_key in DISEASE_INFO:
-        return DISEASE_INFO[alias_key]
-
-    # Try to match by lower-case keys in DISEASE_INFO
-    for info_key in DISEASE_INFO:
-        if info_key.lower() == key_norm.replace(' ', '_') or info_key.lower() == key_norm:
-            return DISEASE_INFO[info_key]
-
-    # Fallback default
+    # Step 2: Normalize and try aliases
+    normalized = disease_name.strip().lower().replace('-', '_')
+    
+    # Check if normalized version is in aliases
+    if normalized in DISEASE_NAME_ALIASES:
+        mapped_name = DISEASE_NAME_ALIASES[normalized]
+        if mapped_name in DISEASE_INFO:
+            return DISEASE_INFO[mapped_name]
+    
+    # Step 3: Try case-insensitive comparison with DISEASE_INFO keys
+    normalized_underscore = normalized.replace(' ', '_')
+    for key in DISEASE_INFO:
+        if key.lower() == normalized_underscore or key.lower().replace('_', '') == normalized.replace('_', ''):
+            return DISEASE_INFO[key]
+    
+    # Step 4: Fallback with default safe information
+    print(f"Warning: Disease '{disease_name}' not found in database. Using fallback.")
     return {
         'description': 'Information not available',
         'symptoms': 'Please consult with a plant pathologist',
