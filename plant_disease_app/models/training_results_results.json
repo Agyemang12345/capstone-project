@@ -1,0 +1,5 @@
+{
+    "class_names": ["Healthy", "Powdery", "Rust"],
+    "num_classes": 3,
+    "note": "Auto-created results file so Streamlit app can load class names."
+}
