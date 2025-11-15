@@ -1,1 +1,10 @@
-{"classes": ["Healthy", "Powdery", "Rust"], "accuracy": 0.9396985173225403, "loss": 0.28512755036354065}
+{
+  "class_names": [
+    "Healthy",
+    "Leaf_Spot",
+    "Powdery",
+    "Rust"
+  ],
+  "num_classes": 4,
+  "accuracy": 0.9251572489738464
+}

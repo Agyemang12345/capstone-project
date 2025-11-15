@@ -1,5 +1,14 @@
 {
-    "class_names": ["Healthy", "Powdery", "Rust"],
-    "num_classes": 3,
-    "note": "Auto-created results file so Streamlit app can load class names."
+  "class_names": [
+    "Healthy",
+    "Leaf_Spot",
+    "Powdery",
+    "Rust"
+  ],
+  "num_classes": 4,
+  "training_accuracy": 0.9251572489738464,
+  "image_size": 224,
+  "model_type": "MobileNetV2",
+  "epochs_trained": 5,
+  "updated_for_leaf_spot": true
 }
