@@ -237,13 +237,27 @@ DISEASE_INFO = {
             'Consider removing severely affected plants',
             'Ensure adequate spacing'
         ]
+    },
+    'Late_Blight': {
+        'description': 'Serious oomycete disease affecting leaves, stems, and tubers. Rapid progression in cool, wet conditions.',
+        'symptoms': 'Water-soaked spots on leaves, white fungal growth on undersides, blackened stems, rapid plant decline',
+        'solutions': [
+            'Remove infected leaves and stems immediately',
+            'Apply copper or chlorothalonil fungicide',
+            'Improve drainage and air circulation',
+            'Avoid overhead watering (water at soil level)',
+            'Remove and destroy infected plant material',
+            'Apply fungicide preventatively in wet conditions',
+            'Space plants for good air flow',
+            'Consider crop rotation'
+        ]
     }
 }
 
 
 # Aliases to map model class names to DISEASE_INFO keys
-# Model outputs: 'Healthy', 'Powdery', 'Rust'
-# Need to map to: 'Healthy', 'Powdery_Mildew', 'Rust'
+# Model outputs: 'Healthy', 'Powdery', 'Rust', 'Leaf_Spot', 'Late_Blight'
+# Need to map to: 'Healthy', 'Powdery_Mildew', 'Rust', 'Leaf_Spot', 'Late_Blight'
 DISEASE_NAME_ALIASES = {
     'healthy': 'Healthy',
     'powdery': 'Powdery_Mildew',
@@ -252,7 +266,9 @@ DISEASE_NAME_ALIASES = {
     'rust': 'Rust',
     'leaf_spot': 'Leaf_Spot',
     'leaf spot': 'Leaf_Spot',
-    'blight': 'Blight'
+    'blight': 'Blight',
+    'late_blight': 'Late_Blight',
+    'late blight': 'Late_Blight'
 }
 
 

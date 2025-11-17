@@ -1,0 +1,34 @@
+# Ignore virtual environment folders
+venv/
+.venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment variable files
+.env
+
+# Ignore Streamlit secrets
+.streamlit/secrets.toml
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore editor/project settings
+.idea/
+.vscode/
+
+# Ignore log files
+*.log
+
+# Ignore model files (optional – uncomment if your model files are large)
+# *.h5
+# *.pb
+# *.ckpt
+
+# Ignore datasets (optional – if datasets are large)
+# datasets/

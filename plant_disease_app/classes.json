@@ -1,1 +1,11 @@
-﻿{"class_names": ["Healthy", "Late_Blight", "Leaf_Spot", "Powdery", "Rust"], "num_classes": 5, "accuracy": 0.9375}
+{
+  "class_names": [
+    "Healthy",
+    "Late_Blight",
+    "Leaf_Spot",
+    "Powdery",
+    "Rust"
+  ],
+  "num_classes": 5,
+  "accuracy": 0.9686393737792969
+}
